@@ -1,0 +1,29 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=imv-wayland
+pkgver=4.5.0
+pkgrel=4
+pkgdesc='Command line image viewer intended for use with tiling window managers'
+arch=('x86_64')
+url='https://git.sr.ht/~exec64/imv'
+license=('MIT')
+depends=('libxkbcommon' 'pango' 'icu' 'wayland' 'libpng' 'libjpeg-turbo' 'libtiff'
+         'librsvg>=2.44')
+makedepends=('meson' 'ninja' 'gcc')
+source=('https://git.sr.ht/~exec64/imv/archive/v4.5.0.tar.gz')
+sha256sums=('3b11991a86942d757830015033b1c3a3cc915be2f0c20fee7bc7493be560cbcb')
+
+build() {
+    cd "imv-v$pkgver"
+    meson setup --prefix=/usr --backend=ninja --buildtype=release \
+        --optimization=2 --strip -Dwindows=wayland -Dunicode=icu \
+        -Dcontrib-commands=false -Dman=disabled -Dlibpng=enabled -Dtest=disabled \
+        -Dlibjpeg=enabled -Dlibrsvg=enabled -Dfreeimage=disabled -Dlibtiff=enabled \
+        -Dlibnsgif=disabled -Dlibheif=disabled -Dlibjxl=disabled \
+        -Dc_link_args="-Wl,--copy-dt-needed-entries" build .
+    meson compile -C build
+}
+
+package() {
+    cd "imv-v$pkgver"
+    meson install -C build --destdir "$pkgdir"
+}

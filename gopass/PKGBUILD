@@ -1,0 +1,18 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=gopass
+pkgver=1.15.15
+pkgrel=1
+pkgdesc='The slightly more awesome standard unix password manager for teams'
+arch=('x86_64')
+url='https://www.gopass.pw'
+license=('MIT')
+source=('https://github.com/gopasspw/gopass/releases/download/v1.15.15/gopass-1.15.15-linux-amd64.tar.gz')
+sha256sums=('eebd930145957a2ccfcfd0b71ca86769d5ab19eb5dc385978502d0774891fb21')
+
+package() {
+    mkdir -p "$pkgdir/usr/bin"
+    mkdir -p "$pkgdir/usr/share/zsh/site-functions"
+    cp gopass "$pkgdir/usr/bin/gopass"
+    chmod +x "$pkgdir/usr/bin/gopass"
+    cp zsh.completion "$pkgdir/usr/share/zsh/site-functions/_gopass"
+}

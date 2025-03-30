@@ -1,0 +1,16 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=ghcup
+pkgver=0.1.40
+pkgrel=1
+pkgdesc='The main installer for the general purpose language Haskell'
+arch=('x86_64')
+url='https://www.haskell.org/ghcup'
+license=('LGPL-3.0')
+source=('https://downloads.haskell.org/~ghcup/0.1.40.0/x86_64-linux-ghcup-0.1.40.0')
+sha256sums=('70ca52b73ee796f5c43b4259f7fcedc2a0d60d85a6a9ed40a82ea8553fca34a0')
+
+package() {
+    mkdir -p "$pkgdir/usr/bin"
+    cp x86_64-linux-ghcup-0.1.40.0 "$pkgdir/usr/bin/ghcup"
+    chmod +x "$pkgdir/usr/bin/ghcup"
+}

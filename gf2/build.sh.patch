@@ -1,0 +1,8 @@
+--- ./build.sh	2025-03-30 17:04:42.934826039 +0500
++++ ./build_sh_patch	2025-03-30 17:06:54.354173874 +0500
+@@ -13,4 +13,4 @@
+ uname -m | grep x86_64 > /dev/null && extra_flags="$extra_flags -DUI_SSE2"
+ 
+ # Build the executable.
+-g++ gf2.cpp -o gf2 -g -O2 -lX11 -pthread $extra_flags -Wall -Wextra -Wno-unused-parameter -Wno-unused-result -Wno-missing-field-initializers -Wno-format-truncation || exit 1
++g++ gf2.cpp -o gf2 -O2 -lX11 -pthread $extra_flags -Wall -Wextra -Wno-unused-parameter -Wno-unused-result -Wno-missing-field-initializers -Wno-format-truncation || exit 1

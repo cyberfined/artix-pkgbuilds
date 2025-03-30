@@ -1,0 +1,42 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=gf2
+pkgver=r342.338b690
+pkgrel=1
+pkgdesc='A GDB frontend for Linux'
+arch=('x86_64')
+url='https://github.com/nakst/gf'
+license=('MIT')
+depends=('libx11' 'freetype2' 'libxcb' 'zlib' 'bzip2' 'libpng' 'harfbuzz' 'brotli'
+         'libxau' 'libxdmcp' 'glib2' 'graphite' 'pcre2' 'gdb')
+makedepends=('make' 'gcc')
+source=(
+    "$pkgname::git+https://github.com/nakst/gf.git"
+    "build.sh.patch"
+    "Makefile"
+)
+sha256sums=(
+    'SKIP'
+    '0d23f00e2a1dd9960c36df46deb516ccd969c0e68cc0b2bddd2b2bf1475fa7a7'
+    '86aacafc43efc2e88298674abfc66e84ff068733373dbda6c189b65b25b39a21'
+)
+
+pkgver() {
+    cd "$pkgname"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+
+prepare() {
+    cd "$pkgname"
+    patch -Np1 --input="$srcdir/build.sh.patch"
+    cp "$srcdir/Makefile" ./
+}
+
+build() {
+    cd "$pkgname"
+    make
+}
+
+package() {
+    cd "$pkgname"
+    make install DESTDIR="$pkgdir/usr/bin"
+}
