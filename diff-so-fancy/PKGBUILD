@@ -1,0 +1,15 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=diff-so-fancy
+pkgver=1.4.4
+pkgrel=1
+pkgdesc='diff-so-fancy strives to make your diffs human readable instead of machine readable'
+arch=('any')
+url='https://github.com/so-fancy/diff-so-fancy'
+license=('MIT')
+depends=('perl')
+source=("https://github.com/so-fancy/$pkgname/releases/download/v$pkgver/$pkgname")
+sha256sums=('14ded2376a20ce089952c64a2894afeb70ff0b77e5d7b661eb1c973820208e59')
+
+package() {
+    install -D -m 0755 -t "$pkgdir/usr/bin" diff-so-fancy
+}
