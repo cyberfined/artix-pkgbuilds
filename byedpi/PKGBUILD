@@ -1,0 +1,23 @@
+# Maintainer: cyberfined <cyberfined@protonmail.com>
+pkgname=byedpi
+pkgver=0.16.6
+pkgrel=1
+pkgdesc='Bypass DPI'
+arch=('x86_64')
+url='https://github.com/hufrea/byedpi'
+license=('MIT')
+makedepends=('make' 'gcc')
+source=(
+    "$pkgname-$pkgname.tar.gz::https://github.com/hufrea/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
+)
+sha256sums=('62e971bbdc34d7af1b875aba8dd98d9ff63a0748c8e50b84cf5c41d327d62e77')
+
+build() {
+    cd "$pkgname-$pkgver"
+    CFLAGS="-O2 -march=native -flto" make
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    DESTDIR="$pkgdir" PREFIX="/usr" make install
+}
